@@ -1,7 +1,7 @@
 # anicompass
 App which suggests new Anime recommendations based on previous viewing history
 
-## Setup
+## Setup Virtual Enviroment
 
 * Install `python`, `pip` and `pipenv` if not already present locally.
 
@@ -19,3 +19,6 @@ pipenv run python <file_name>.py
 pipenv install <dependency>
 ```
 So that the `Pipfile` remains updated
+
+## Setup Data Ingestion
+

@@ -3,18 +3,10 @@ from pathlib import Path
 
 import chromadb
 
-ANIME_ID_KEY = 'anime_id'
-NAME_KEY = 'Name'
-ENGLISH_NAME_KEY = 'English name'
-POPULARITY_KEY = 'Popularity'
-FAVOURITE_KEY = 'Favorites'
-MEMBERS_KEY = 'Members'
-IMAGE_URL_KEY = 'Image URL'
-ANIME_METADATA_KEY = 'Anime Metadata'
-COLLABORATIVE_EMBEDDINGS_KEY = 'Collaborative Embeddings Key'
-CONTENT_EMBEDDINGS_KEY = 'Content Embeddings Key'
-ANIME_COLLECTION_NAME = 'anime_collection'
+from constants import *
 
+CHROMA_MAX_BATCH_SIZE = 5000
+RELATIVE_WEIGHT_COLLABORATIVE_EMBEDDING = 2.5
 
 base_path = Path(__file__).parent
 ANIME_DATASET_FILEPATH = (base_path / "../data/anime_dataset.csv").resolve()
@@ -56,6 +48,11 @@ def get_merged_dataset(anime_dataset_dict, collaborative_embedding, content_embe
     return result
 
 
+def get_merged_embedding(collaborative_embedding, content_embedding):
+    weighted_collaborative = [RELATIVE_WEIGHT_COLLABORATIVE_EMBEDDING * w for w in collaborative_embedding]
+    return weighted_collaborative + content_embedding
+
+
 def ingest_data_into_collection(merged_dataset, collection: chromadb.Collection):
     embeddings_list = []
     metadata_list = []
@@ -63,8 +60,7 @@ def ingest_data_into_collection(merged_dataset, collection: chromadb.Collection)
     for anime_id, anime_attrs in merged_dataset.items():
         ids_list.append(anime_id)
         metadata_list.append(anime_attrs[ANIME_METADATA_KEY])
-        embeddings_list.append(anime_attrs[COLLABORATIVE_EMBEDDINGS_KEY])
-    CHROMA_MAX_BATCH_SIZE = 5000
+        embeddings_list.append(get_merged_embedding(anime_attrs[COLLABORATIVE_EMBEDDINGS_KEY], anime_attrs[CONTENT_EMBEDDINGS_KEY]))
     for start_idx in range(0, len(merged_dataset), CHROMA_MAX_BATCH_SIZE):
         end_idx = min(start_idx + CHROMA_MAX_BATCH_SIZE, len(merged_dataset))
         collection.add(
@@ -73,7 +69,6 @@ def ingest_data_into_collection(merged_dataset, collection: chromadb.Collection)
             metadatas=metadata_list[start_idx: end_idx]
         )
     print("Data Ingestion Complete")
-
 
 
 def main():
@@ -85,11 +80,9 @@ def main():
                                         collaborative_embedding=collaborative_embedding, 
                                         content_embedding=content_embedding)
 
-    client = chromadb.EphemeralClient()
+    client = chromadb.PersistentClient(path=CHROMADB_PERSISTENCE_PATH)
     anime_collection = client.create_collection(name=ANIME_COLLECTION_NAME)
     ingest_data_into_collection(merged_dataset=merged_dataset, collection=anime_collection)
-    
 
-    print(anime_collection.query(query_embeddings=merged_dataset['5'][COLLABORATIVE_EMBEDDINGS_KEY], n_results=5))
 
 main()

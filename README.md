@@ -21,4 +21,7 @@ pipenv install <dependency>
 So that the `Pipfile` remains updated
 
 ## Setup Data Ingestion
-
+* Run the following
+```
+python .\src\data_ingestion_script.py
+```

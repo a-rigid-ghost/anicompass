@@ -8,6 +8,10 @@ bs4 = "*"
 requests = "*"
 pycountry = "*"
 chromadb = "*"
+jikanpy-v4 = "*"
+python-dotenv = "*"
+ratelimit = "*"
+numpy = "*"
 
 [dev-packages]
 

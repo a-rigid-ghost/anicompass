@@ -20,6 +20,11 @@ pipenv install <dependency>
 ```
 So that the `Pipfile` remains updated
 
+To activate this project's virtualenv, run
+``` 
+pipenv shell
+```
+
 ## Setup Data Ingestion
 * Run the following
 ```

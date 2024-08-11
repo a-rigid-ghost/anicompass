@@ -254,13 +254,3 @@ class RecFactory:
                 counted_animes.add(anime.mal_id)
                 dedup_anime_list.append(anime)
         return dedup_anime_list    
-
-
-def main():
-    username = 'senbonzakura_k'
-
-    recommendation_factory = RecFactory(username=username)
-    print(recommendation_factory.generate_anime_recommendations(topk=10))
-
-
-main()

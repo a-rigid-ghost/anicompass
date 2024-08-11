@@ -30,3 +30,18 @@ pipenv shell
 ```
 python .\src\data_ingestion_script.py
 ```
+
+## Start Server
+* Create `.env` file and add your MAL client ID
+  * Details on how to create one: https://myanimelist.net/forum/?topicid=1973077
+```
+MAL_CLIENT_ID = <YOUR_MAL_CLIENT_ID>
+```
+* Start the Flask Server
+```
+python .\src\app.py
+```
+* Now you can hit the local endpoint
+```
+http://127.0.0.1:5000/recommendations/{YOUR_MAL_USERNAME}
+```

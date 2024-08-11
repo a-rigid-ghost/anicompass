@@ -12,6 +12,7 @@ jikanpy-v4 = "*"
 python-dotenv = "*"
 ratelimit = "*"
 numpy = "*"
+flask = "*"
 
 [dev-packages]
 

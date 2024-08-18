@@ -14,8 +14,10 @@ def ReturnJSON(username):
 		anime_dict_list = [asdict(anime) for anime in anime_obj_list]
 		data = { 
 			"recommendationList" : anime_dict_list, 
-		} 
-		return jsonify(data) 
+		}
+		response = jsonify(data)
+		response.headers.add("Access-Control-Allow-Origin", "*")
+		return response
 
 if __name__=='__main__': 
 	app.run(debug=True)

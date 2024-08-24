@@ -45,3 +45,33 @@ python .\src\app.py
 ```
 http://127.0.0.1:5000/recommendations/{YOUR_MAL_USERNAME}
 ```
+
+## Response Format
+```json
+{
+  "recommendationList": [
+    {
+      "english_title": "Attack on Titan",
+      "favourites": 163844,
+      "image_url": "https://cdn.myanimelist.net/images/anime/10/47347.jpg",
+      "mal_id": "16498",
+      "members": 3744541,
+      "popularity": 1,
+      "title": "Shingeki no Kyojin"
+    },
+    {
+      "english_title": "No Game, No Life",
+      "favourites": 47444,
+      "image_url": "https://cdn.myanimelist.net/images/anime/1074/111944.jpg",
+      "mal_id": "19815",
+      "members": 2305805,
+      "popularity": 16,
+      "title": "No Game No Life"
+    },
+    ...
+}
+```
+
+## Next Steps
+
+You may want to deploy the [anicompass-frontend](https://github.com/a-rigid-ghost/anicompass-frontend) server for a visual exerience

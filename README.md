@@ -69,6 +69,7 @@ http://127.0.0.1:5000/recommendations/{YOUR_MAL_USERNAME}
       "title": "No Game No Life"
     },
     ...
+  ]
 }
 ```
 

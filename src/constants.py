@@ -10,4 +10,4 @@ COLLABORATIVE_EMBEDDINGS_KEY = 'Collaborative Embeddings Key'
 CONTENT_EMBEDDINGS_KEY = 'Content Embeddings Key'
 ANIME_COLLECTION_NAME = 'anime_collection'
 
-CHROMADB_PERSISTENCE_PATH = "D:\cosmosdb"
+CHROMADB_PERSISTENCE_PATH = "C:\cosmosdb"
